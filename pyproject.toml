@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "slack-cli"
+version = "0.1.0"
+description = "A CLI tool for searching and browsing Slack workspaces"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "slack-sdk>=3.0.0",
+    "python-dotenv>=1.0.0",
+    "rich>=14.0.0",
+    "typer>=0.21.0",
+]
+
+[project.scripts]
+slack = "slack_cli.main:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slack_cli"]
