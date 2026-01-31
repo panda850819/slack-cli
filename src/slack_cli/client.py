@@ -369,3 +369,31 @@ class SlackClient:
                 )
             )
         return messages
+
+    def send_message(
+        self,
+        channel: str,
+        text: str,
+        thread_ts: str | None = None,
+    ) -> tuple[str, str]:
+        """Send a message to a channel or thread.
+
+        Args:
+            channel: Channel name (with or without #) or ID
+            text: Message text to send
+            thread_ts: Optional thread timestamp to reply to
+
+        Returns:
+            Tuple of (channel_id, message_timestamp)
+        """
+        channel_id = self._resolve_channel_id(channel)
+
+        try:
+            response = self.client.chat_postMessage(
+                channel=channel_id,
+                text=text,
+                thread_ts=thread_ts,
+            )
+            return response["channel"], response["ts"]
+        except SlackApiError as e:
+            raise RuntimeError(f"Failed to send message: {e.response['error']}")

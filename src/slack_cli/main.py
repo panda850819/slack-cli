@@ -3,7 +3,7 @@
 import typer
 
 from . import __version__
-from .commands import channel, dm, search
+from .commands import channel, dm, search, send
 
 app = typer.Typer(
     name="slack",
@@ -12,6 +12,8 @@ app = typer.Typer(
 )
 
 app.command(name="search")(search.search)
+app.command(name="send")(send.send)
+app.command(name="reply")(send.reply)
 app.add_typer(channel.app, name="channel")
 app.add_typer(dm.app, name="dm")
 

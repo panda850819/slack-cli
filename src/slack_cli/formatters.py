@@ -172,3 +172,12 @@ def print_error(message: str) -> None:
 def print_success(message: str) -> None:
     """Print a success message."""
     console.print(f"[green]✓[/green] {message}")
+
+
+def print_sent_message(channel: str, timestamp: str, thread_ts: str | None = None) -> None:
+    """Print confirmation of a sent message."""
+    time_str = format_timestamp(timestamp)
+    if thread_ts:
+        console.print(f"[green]✓[/green] Reply sent to thread in [cyan]#{channel}[/cyan] at {time_str}")
+    else:
+        console.print(f"[green]✓[/green] Message sent to [cyan]#{channel}[/cyan] at {time_str}")
